@@ -1,10 +1,12 @@
 /*  Name: aprime
-    Description: primality test program
-    Author: Blake Bartenbach             */
+    Description: primality test program */
 
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<stdint.h>
+#include<stdbool.h>
+#include<ctype.h>
 
 void print_header();
 void print_help();
@@ -14,30 +16,41 @@ void primality_handler();
 void assess_primality(int n);
 char get_cmd();
 
-const char *version = "0.0.1-indev";
+const char *version = "0.0.2-indev";
+int i;
+
 
 int main() {
   print_header();
   while (1) {
     printf("(aprime) ");
-    char cmd[5];
-    scanf("%s", &cmd);
-    cmd_handler(cmd);
+    char cmd[20];
+    fgets(cmd, sizeof(cmd), stdin);
+    bool integer = true;
+
+    for (i=0; i < strlen(cmd)-1; i++) {
+      if (!isdigit(cmd[i])) {
+          integer = false;
+          break;
+      }
+    }
+    if (integer == true) {
+      int input;
+      sscanf(cmd, "%d", &input);
+      assess_primality(input);    
+    } else {  
+      cmd_handler(cmd);
+    }
   }
 }
 
 void print_header() {
   printf("aprime - primality test program version %s\n\n", version);
-  printf("type \"help\" for commands\n");
 }
 
 void cmd_handler(char *cmd) {
   if (strncmp(cmd, "exit", 4) == 0) {
     exit(0);
-  } else if (strncmp(cmd, "test",4) == 0) {
-    primality_handler();
-  } else if (strncmp(cmd, "help", 4) == 0) {
-    print_help();
   }
 }
 
@@ -51,7 +64,7 @@ void primality_handler() {
 }
 
 int get_number() {
-  printf("> ");
+  printf("(aprime) ");
   int ret, num;
   ret = scanf("%u", &num);
   assess_primality(num);
