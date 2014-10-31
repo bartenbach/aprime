@@ -1,4 +1,5 @@
 /*  Name: aprime
+    Author: Blake Bartenbach
     Description: primality test program */
 
 #include<stdio.h>
@@ -9,14 +10,12 @@
 #include<ctype.h>
 
 void print_header();
-void print_help();
 void print_version();
 void cmd_handler(char *cmd);
 void primality_handler();
 void assess_primality(int n);
-char get_cmd();
 
-const char *version = "0.0.2-indev";
+const char *version = "0.0.3-indev";
 int i;
 
 
@@ -60,7 +59,7 @@ void primality_handler() {
   while (retVal == 1) {
     retVal = get_number(); 
   }
-  exit(1); // TODO return to menu somehow
+  exit(1);
 }
 
 int get_number() {
@@ -88,16 +87,4 @@ void assess_primality(int n) {
   }
 
   printf("    [[ %d is prime ]]\n", n);
-}
-
-char get_cmd() {
-  char cmd[5];
-  scanf("%s", &cmd);
-  return *cmd;
-}
-
-void print_help() {
-  printf("    exit - exits the program\n");
-  printf("    test - test an integer for primality\n");
-  printf("    help - show this menu\n");
 }
