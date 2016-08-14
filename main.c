@@ -14,6 +14,7 @@ void print_version();
 void cmd_handler(char *cmd);
 void primality_handler();
 void assess_primality(int n);
+int get_number();
 
 const char *version = "0.0.3-indev";
 int i;
@@ -55,7 +56,6 @@ void cmd_handler(char *cmd) {
 
 void primality_handler() {
   int retVal = 1;
-  int num;
   while (retVal == 1) {
     retVal = get_number(); 
   }
@@ -64,7 +64,7 @@ void primality_handler() {
 
 int get_number() {
   printf("(aprime) ");
-  int ret, num;
+  unsigned int ret, num;
   ret = scanf("%u", &num);
   assess_primality(num);
   return ret;
